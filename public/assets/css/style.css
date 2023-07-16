@@ -1,0 +1,187 @@
+  /* page loader */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.box {
+  width: inherit;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 99;
+}
+
+.con {
+  height: 15px;
+  width: 105px;
+  display: flex;
+  position: relative;
+}
+.con .circle {
+  width: 15px;
+  height: 15px;
+  /* border-radius: 50%; */
+  background-color: rgb(0, 0, 0);
+  animation: move 500ms linear 0ms infinite;
+  margin-right: 30px;
+}
+.con .circle:first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: grow 500ms linear 0ms infinite;
+}
+.con .circle:last-child {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 0;
+  animation: grow 500ms linear 0s infinite reverse;
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@keyframes move {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(45px);
+  }
+}
+/* end page loader */
+
+/* breadcrumb */
+.breadcrumb-item a{
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+.breadcrumb-item a:hover{
+  color: cornflowerblue;
+}
+/* End breadcrumb */
+
+#groupUser{
+  cursor: pointer;
+  color:#ffffff;
+  background-color: dimgray;
+}
+#groupUser:hover{
+  background-color: rgb(73, 73, 73);
+  color: #ffffff;
+}
+
+img#thumbnail{
+  border-radius: 100%;
+  width:2vw;
+}
+.img-thumbnail{
+  max-width:fit-content ;
+}
+
+@media (orientation: landscape) {
+  img#thumbnail {
+    width: 6vw;
+  }
+}
+img#thumbnail {
+  width: 6vh;
+}
+
+
+
+/* DataTable */
+.form-select,
+[type='search']
+{
+  border-radius: 0;
+}
+
+li.paginate_button.active a{
+  background-color: gray;
+  border:none;
+}
+
+/* End DataTable */
+
+/* Upload Foto Profil */
+.image-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-upload>input {
+  display: none;
+
+}
+.image-upload>label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label.file-input{
+  width: fit-content;
+}
+.image-upload label img {
+  border-radius: 100%;
+  width: 15vh;
+  height: 15vh;
+  object-fit: cover;
+}
+
+@media (orientation: landscape) {
+  .image-upload label img {
+    width: 10vw;
+    height: 10vw;
+  }
+}
+
+.image-upload label img:hover{
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.file-input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-foto{
+  position: absolute;
+  z-index: 10;
+  color: rgb(32, 32, 32);
+  display: none;
+  width: 20px;
+}
+.icon-foto:hover{
+  cursor: pointer;
+}
+
+/* Paginate */
+.page-item:last-child .page-link,.page-item:first-child .page-link{
+  border-radius: 0;
+  
+}
+li.paginate_button.active a{
+ border: solid 1px transparent
+}
