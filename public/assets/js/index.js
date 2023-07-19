@@ -105,3 +105,9 @@ function thousands_separators(num)
     return num_parts.join(".");
   }
 
+  function tanggal(params) {
+    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const bulan = ['Januari', 'Feberuari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    return hari[params.getDay()] + ', ' + params.getDate() + ' ' + bulan[params.getMonth()] + ' ' + params.getFullYear() + ' Pukul ' + params.getHours() + ' : ' + + params.getMinutes() + ' WIB';
+  }
+

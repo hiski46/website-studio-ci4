@@ -80,7 +80,8 @@
                 <script>
                     var tableTransaksi = $('#table-transaksi').DataTable({
                         scrollY: 300,
-                        scrollX: true
+                        scrollX: true,
+                        order: [1, 'desc'],
                     });
 
                     let transaksiDone = <?= $transaksiDone ?>;

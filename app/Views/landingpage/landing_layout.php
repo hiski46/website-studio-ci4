@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/assets/css/landing.css" rel="stylesheet" />
+    <!-- izitoast -->
+    <link rel="stylesheet" href="/assets/css/iziToast.min.css">
     <!-- jquery -->
     <script src="/assets/js/jquery.min.js"></script>
 </head>
@@ -85,6 +87,8 @@
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="/assets/js/scriptsLanding.js"></script>
+    <script src="/assets/js/iziToast.min.js" type="text/javascript"></script>
+
     <script>
         setBadgeCartQty();
 
@@ -95,9 +99,49 @@
                 badge.text(carts.length);
             } else {
                 badge.text(0);
+                $('#checkout').hide();
             }
         }
+        cekCheckout()
+
+        function cekCheckout() {
+            const transaksi = JSON.parse(window.localStorage.getItem('transaksi'));
+            if (transaksi) {
+                $('#kode_transaksi').text(transaksi.kode_transaksi);
+                waktu_batas = new Date(transaksi.waktu_checkout);
+                waktu_batas.setMinutes(waktu_batas.getMinutes() + 10);
+                waktu_sekarang = new Date();
+                if (waktu_sekarang > waktu_batas) {
+                    clearCartTrans();
+                } else {
+                    $('#masa_kode_transaksi').text(tanggal(waktu_batas));
+                    $('#transaksi').show();
+                    $('#checkout').hide();
+                }
+            } else {
+                $('#transaksi').hide();
+            }
+
+        }
+
+        function clearCartTrans() {
+            window.localStorage.removeItem('carts');
+            window.localStorage.removeItem('transaksi');
+            $('#transaksi').hide();
+            $('#subtotal').hide();
+            setBadgeCartQty();
+            drawCart();
+            iziToast.show({
+                title: 'Transaksi Selesai',
+                // message: 'What would you like to add?',
+                balloon: false,
+                position: 'topCenter',
+                theme: "light",
+                color: "blue"
+            });
+        }
     </script>
+    <?= $this->renderSection('javascript') ?>
 </body>
 
 </html>

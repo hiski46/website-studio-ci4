@@ -9,6 +9,7 @@ use App\Models\PaketCategoryModel;
 use App\Models\PaketModel;
 use App\Models\PortofolioModel;
 use App\Models\TransaksiModel;
+use Exception;
 
 class LandingController extends MainController
 {
@@ -78,7 +79,17 @@ class LandingController extends MainController
         $data = $this->request->getPost();
         $data['kode_transaksi'] = $transaksi->auto_generate();
 
-        $transaksi->save($data);
-        return redirect('/');
+
+        try {
+            $transaksi->save($data);
+        } catch (Exception $e) {
+            return json_encode(['code' => $e->getCode(), 'messaage' => $e->getMessage()]);
+        }
+
+        return json_encode([
+            'code' => 200,
+            'message' => 'Berhasil checkout, silahkan lakukan pembayaran',
+            'kode_transaksi' => $data['kode_transaksi']
+        ]);
     }
 }

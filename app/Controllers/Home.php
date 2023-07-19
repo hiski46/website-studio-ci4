@@ -14,11 +14,12 @@ class Home extends MainController
         $transaksi = new TransaksiModel();
 
         $paket = new PaketModel();
+        $batas_waktu = date("Y-m-d H:i:s", strtotime("-10 minutes"));
         $data = [
             'title' => "Home",
-            'transaksi' => $transaksi->orderBy('created_at', 'DESC')->findAll(),
+            'transaksi' => $transaksi->orderBy('created_at', 'DESC')->where('is_paid', 1)->orWhere('created_at >=', $batas_waktu)->get()->getResult(),
             'transaksiDone' => $transaksi->where('is_paid', 1)->countAllResults(),
-            'transaksiWait' => $transaksi->where('is_paid', 0)->countAllResults(),
+            'transaksiWait' => $transaksi->where('is_paid', 0)->where('created_at >=', $batas_waktu)->countAllResults(),
             'pakets' => $paket->findAll(),
         ];
         return $this->template('dashboard/home', $data);

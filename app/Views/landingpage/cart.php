@@ -33,10 +33,17 @@
         <div class="col-md-4 py-3 text-center">
             <h1 id="subtotal">
             </h1>
-            <form action="/landingpage/checkout" method="post" onsubmit="clearCart()">
-                <input type="hidden" id="paket" name="paket">
-                <button type="submit" class="btn btn-success btn-lg rounded-0 form-control">Checkout</button>
-            </form>
+            <button type="button" id="checkout" onclick="checkout(this)" class="btn btn-success btn-lg rounded-0 form-control">Checkout</button>
+            <div class="" style="display:none" id="transaksi">
+                Kode transaksi:<h3 id="kode_transaksi"></h3>
+                Batas waktu pembayaran : <h6 id="masa_kode_transaksi"></h6> <br>
+                Silahkan melakukan pembayaran melalui no rekening: <br>
+                <h5><?= $no_rek ?></h5> <br>
+                Kirim bukti pembayaran melauli Whatsap: <br>
+                <h5><?= $phone ?></h5>
+
+                <button class="btn btn-success form-control rounded-0 " onclick="clearCartTrans()"> Sudah Mengirimkan Bukti Pembayaran</button>
+            </div>
         </div>
     </div>
 </div>
@@ -44,33 +51,77 @@
 
 <script src="/assets/js/index.js"></script>
 <script>
-    let carts = JSON.parse(window.localStorage.getItem('carts'))
-    let paket = <?= $paket ?>;
-    var subTotal = 0;
-    let html = ``;
-    carts.forEach(cart => {
-        pak = paket.find(p => p.id == cart.id_paket);
-        price = pak.price;
-        if (pak.price_disc > 0) {
-            price = pak.price_disc;
-        }
-        total = price * cart.qty;
-        subTotal = subTotal + total;
-        html += `<div class="row mb-3">
-                    <div class="col-md-4">
-                        <img id="card-img" class="img-fluid" src="/paket/` + pak.image + `" alt="">
-                    </div>
-                    <div class="col-md-8">
-                        <h5>` + pak.title + `</h5>
-                        <p>Rp. ` + thousands_separators(price) + ` x ` + cart.qty + ` = Rp. ` + thousands_separators(total) + `</p>
-                    </div>
-                </div>`;
-    });
-    $('#list-product').html(html);
-    $('#subtotal').text('Rp. ' + thousands_separators(subTotal));
-    $('#paket').val(JSON.stringify(carts));
+    drawCart();
 
-    function clearCart() {
-        window.localStorage.removeItem('carts');
+    function drawCart() {
+        let carts = JSON.parse(window.localStorage.getItem('carts'))
+        let paket = <?= $paket ?>;
+        var subTotal = 0;
+        let html = ``;
+        if (carts) {
+            if (carts.length > 0) {
+                carts.forEach(cart => {
+                    pak = paket.find(p => p.id == cart.id_paket);
+                    price = pak.price;
+                    if (pak.price_disc > 0) {
+                        price = pak.price_disc;
+                    }
+                    total = price * cart.qty;
+                    subTotal = subTotal + total;
+                    html += `<div class="row mb-3">
+                                <div class="col-md-4">
+                                    <img id="card-img" class="img-fluid" src="/paket/` + pak.image + `" alt="">
+                                </div>
+                                <div class="col-md-8">
+                                    <h5>` + pak.title + `</h5>
+                                    <p>Rp. ` + thousands_separators(price) + ` x ` + cart.qty + ` = Rp. ` + thousands_separators(total) + `</p>
+                                </div>
+                            </div>`;
+                });
+
+                $('#subtotal').text('Rp. ' + thousands_separators(subTotal));
+            }
+        }
+        $('#list-product').html(html);
+
+    }
+
+    function checkout(btn) {
+        var url = '<?= base_url("/landingpage/checkout") ?>';
+        let carts = JSON.parse(window.localStorage.getItem('carts'))
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                paket: JSON.stringify(carts)
+            },
+            beforeSend: function(data) {
+                $(btn).prop('disabled', true);
+            },
+            success: function(data) {
+                data = JSON.parse(data);
+                $(btn).prop('disabled', false);
+                if (data.code == 200) {
+                    color = 'blue';
+                    dataTransaksi = {
+                        kode_transaksi: data.kode_transaksi,
+                        waktu_checkout: new Date()
+                    };
+                    window.localStorage.setItem('transaksi', JSON.stringify(dataTransaksi));
+                    cekCheckout();
+                } else {
+                    color = 'red';
+                }
+                iziToast.show({
+                    title: data.message,
+                    // message: 'What would you like to add?',
+                    balloon: false,
+                    position: 'topCenter',
+                    theme: "light",
+                    color: color
+                });
+            }
+        })
+
     }
 </script>
