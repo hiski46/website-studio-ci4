@@ -8,10 +8,24 @@ use App\Controllers\MainController;
 
 class Home extends MainController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function index()
     {
         $transaksi = new TransaksiModel();
+
+        $pengunjunghariini  = $this->visitor->db->query("SELECT * FROM visitor WHERE date='" . date("Y-m-d") . "' GROUP BY ip")->getNumRows(); // Hitung jumlah pengunjung
+
+        $dbpengunjung = $this->visitor->db->query("SELECT COUNT(hits) as hits FROM visitor")->getRow();
+
+        $totalpengunjung = isset($dbpengunjung->hits) ? ($dbpengunjung->hits) : 0; // hitung total pengunjung
+
+        $bataswaktu = time() - 300;
+
+        $pengunjungonline  = $this->visitor->db->query("SELECT * FROM visitor WHERE online > '" . $bataswaktu . "'")->getNumRows(); // hitung pengunjung online
 
         $paket = new PaketModel();
         $batas_waktu = date("Y-m-d H:i:s", strtotime("-10 minutes"));
@@ -22,6 +36,9 @@ class Home extends MainController
             'transaksiWait' => $transaksi->where('is_paid', 0)->where('created_at >=', $batas_waktu)->countAllResults(),
             'pakets' => $paket->findAll(),
         ];
+        $data['pengunjunghariini'] = $pengunjunghariini;
+        $data['totalpengunjung'] = $totalpengunjung;
+        $data['pengunjungonline'] = $pengunjungonline;
         return $this->template('dashboard/home', $data);
     }
 

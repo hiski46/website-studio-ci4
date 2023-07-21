@@ -66,6 +66,9 @@
     <script src="/assets/js/jquery.min.js"></script>
     <!-- summernote -->
     <link rel="stylesheet" href="/summernote/summernote-lite.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
     <script src="/summernote/summernote-lite.min.js"></script>
 </head>
 
@@ -149,7 +152,27 @@
                             </li>
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                            <span></i> <?= lang('Auth.settings') ?></span>
+                            <span> Laporan</span>
+                            <a class="link-secondary" href="#" aria-label="Add a new report">
+                                <span data-feather="plus-circle" class="align-text-bottom"></span>
+                            </a>
+                        </h6>
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <?php
+                                $start = date("Y-m-d H:i:s", strtotime("midnight", time()));
+                                $end = date("Y-m-d H:i:s", strtotime("tomorrow", time()) - 1);
+                                ?>
+                                <a class="nav-link <?= isAktif('laporan-transaksi'); ?>" href="/laporan-transaksi?start=<?= $start ?>&end=<?= $end ?>">
+                                    <span class="">
+                                        <?= icon('graph-up-arrow') ?>
+                                    </span>
+                                    Laporan Transaksi
+                                </a>
+                            </li>
+                        </ul>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+                            <span> <?= lang('Auth.settings') ?></span>
                             <a class="link-secondary" href="#" aria-label="Add a new report">
                                 <span data-feather="plus-circle" class="align-text-bottom"></span>
                             </a>
@@ -192,6 +215,12 @@
         <script src="/assets/js/jquery.dataTables.min.js"></script>
         <script src="/assets/js/dataTables.bootstrap-5.min.js"></script>
         <script src="/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
         <script>
             $(document).ready(function() {
                 $('#loader').fadeOut('slow')

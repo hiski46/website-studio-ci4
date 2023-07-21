@@ -13,8 +13,15 @@ use Exception;
 
 class LandingController extends MainController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index()
     {
+        $this->countVisitor();
         $biodata = new BiodataModel();
         $portofolio = new PortofolioModel();
         $carousel = new CarouselModel();
@@ -28,6 +35,7 @@ class LandingController extends MainController
 
     public function paket()
     {
+        $this->countVisitor();
         $category_id = $this->request->getGet('category');
         $paket = new PaketModel();
         $category = new PaketCategoryModel();
@@ -53,6 +61,7 @@ class LandingController extends MainController
 
     public function detailPaket($id)
     {
+        $this->countVisitor();
         $biodata = new BiodataModel();
         $data = $biodata->getBiodata();
         $paket = new PaketModel();
@@ -65,6 +74,7 @@ class LandingController extends MainController
 
     public function cart()
     {
+        $this->countVisitor();
         $biodata = new BiodataModel();
         $data = $biodata->getBiodata();
         $paket = new PaketModel();
@@ -75,6 +85,7 @@ class LandingController extends MainController
 
     public function checkout()
     {
+        $this->countVisitor();
         $transaksi = new TransaksiModel();
         $data = $this->request->getPost();
         $data['kode_transaksi'] = $transaksi->auto_generate();
@@ -91,5 +102,28 @@ class LandingController extends MainController
             'message' => 'Berhasil checkout, silahkan lakukan pembayaran',
             'kode_transaksi' => $data['kode_transaksi']
         ]);
+    }
+
+    public function countVisitor()
+    {
+        $ip    = $this->request->getIPAddress(); // Mendapatkan IP user
+        $date  = date("Y-m-d"); // Mendapatkan tanggal sekarang
+        $waktu = time(); //
+        $timeinsert = date("Y-m-d H:i:s");
+
+        // Cek berdasarkan IP, apakah user sudah pernah mengakses hari ini
+        $s = $this->visitor->db->query("SELECT * FROM visitor WHERE ip='" . $ip . "' AND date='" . $date . "'")->getNumRows();
+        $ss = isset($s) ? ($s) : 0;
+
+
+        // Kalau belum ada, simpan data user tersebut ke database
+        if ($ss == 0) {
+            $this->visitor->db->query("INSERT INTO visitor(ip, date, hits, online, time) VALUES('" . $ip . "','" . $date . "','1','" . $waktu . "','" . $timeinsert . "')");
+        }
+
+        // Jika sudah ada, update
+        else {
+            $this->visitor->db->query("UPDATE visitor SET hits=hits+1, online='" . $waktu . "' WHERE ip='" . $ip . "' AND date='" . $date . "'");
+        }
     }
 }

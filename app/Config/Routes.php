@@ -69,6 +69,7 @@ $routes->group('paket', static function ($routes) {
 $routes->group('transaksi', static function ($routes) {
     $routes->get('status', 'Home::statusTransaksi');
 });
+
 $routes->group('content', static function ($routes) {
     $routes->get('portofolio', 'ContentController::portofolio');
     $routes->get('portofolio/add', 'ContentController::halamanAddPortofolio');
@@ -85,6 +86,8 @@ $routes->group('content', static function ($routes) {
     $routes->post('carousel/tambah', 'ContentController::tambahCarousel');
     $routes->get('carousel/delete/(:num)', 'ContentController::deleteCarousel/$1');
 });
+
+$routes->get('laporan-transaksi', 'LaporanController::laporanTransaksi');
 
 
 

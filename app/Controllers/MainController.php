@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\VisitorModel;
 
 use function PHPUnit\Framework\isNull;
 
@@ -36,12 +37,15 @@ class MainController extends BaseController
      */
     protected $validation;
 
+    protected $visitor;
+
     public function __construct()
     {
         $this->ionAuth    = new \App\Libraries\IonAuth();
         $this->validation = \Config\Services::validation();
         $this->configIonAuth = config('IonAuth');
         $this->session       = \Config\Services::session();
+        $this->visitor  = new VisitorModel();
         if ($this->ionAuth->loggedIn()) {
             //create session data
             $sessionData = (array)$this->ionAuth->user()->row();
