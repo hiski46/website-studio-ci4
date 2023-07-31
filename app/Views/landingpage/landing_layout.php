@@ -68,7 +68,7 @@
     <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Simerawana <?= date('Y') ?></div>
+                <div class="col-lg-4 text-lg-start">Copyright &copy; SaveTime <?= date('Y') ?></div>
                 <div class="col-lg-4 my-3 my-lg-0">
                     <a class="btn btn-dark btn-social mx-2" target="_blank" href="<?= $instagram ?>" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a class="btn btn-dark btn-social mx-2" target="_blank" href="<?= $facebook ?>" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

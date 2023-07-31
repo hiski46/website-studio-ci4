@@ -17,7 +17,7 @@
     </label>
   </div> -->
   <button class="btn w-100 btn-primary" type="submit"><?= lang('Auth.login_submit_btn') ?></button>
-  <p class="mt-5 mb-3 text-light">Copyright &copy; Simerawana <?= date('Y'); ?></p>
+  <p class="mt-5 mb-3 text-light">Copyright &copy; SaveTime <?= date('Y'); ?></p>
 </form>
 
 <script>
