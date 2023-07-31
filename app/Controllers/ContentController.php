@@ -140,15 +140,23 @@ class ContentController extends MainController
 
     public function deletePortofolio($id)
     {
+
         $portofolio = new PortofolioModel();
-        if ($portofolio->delete($id)) {
+        $portofolio->delete($id);
+        if ($portofolio->db->affectedRows() > 0) {
             $msg = [
                 'status' => 200,
                 'message' => 'Portofolio berhasil dihapus'
             ];
-            $this->session->setFlashdata('pesan', $msg['message']);
-            return json_encode($msg);
+        } else {
+            $msg = [
+                'status' => 500,
+                'message' => 'Portofolio gagal dihapus'
+            ];
         }
+
+        $this->session->setFlashdata('pesan', $msg['message']);
+        return json_encode($msg);
     }
 
     public function biodataSave()

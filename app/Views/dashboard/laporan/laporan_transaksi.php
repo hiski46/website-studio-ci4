@@ -26,6 +26,7 @@ $today_end = date("Y-m-d H:i:s", strtotime("tomorrow", time()) - 1);
                 <thead>
 
                     <th>Kode Transaksi</th>
+                    <th>Data Pemesan</th>
                     <th>Tanggal Checkout</th>
                     <th>Shop</th>
                     <th>Sub Total</th>
@@ -34,6 +35,11 @@ $today_end = date("Y-m-d H:i:s", strtotime("tomorrow", time()) - 1);
                     <?php foreach ($transaksi as $tr) { ?>
                         <tr>
                             <td><?= $tr->kode_transaksi ?></td>
+                            <td>
+                                <b><?= $tr->nama ?></b><br>
+                                <small><?= $tr->email ?></small><br>
+                                <small><?= $tr->telepon ?></small>
+                            </td>
                             <td><?= $tr->created_at ?></td>
                             <td>
                                 <ol>
@@ -59,7 +65,7 @@ $today_end = date("Y-m-d H:i:s", strtotime("tomorrow", time()) - 1);
                 var tableTransaksi = $('#table-transaksi').DataTable({
                     scrollY: 300,
                     scrollX: true,
-                    order: [1, 'desc'],
+                    order: [2, 'desc'],
                     dom: 'Bfrtip',
                     buttons: {
                         dom: {

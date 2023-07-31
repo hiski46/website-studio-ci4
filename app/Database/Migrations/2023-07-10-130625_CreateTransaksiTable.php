@@ -21,6 +21,18 @@ class CreateTransaksiTable extends Migration
                 'constraint'      => 20,
                 'unique'    => true
             ],
+            'nama' => [
+                'type'  => 'varchar',
+                'constraint'      => 100,
+            ],
+            'email' => [
+                'type'  => 'varchar',
+                'constraint'      => 100,
+            ],
+            'telepon' => [
+                'type'  => 'varchar',
+                'constraint'      => 100,
+            ],
             'paket' => [
                 'type' => 'json',
             ],

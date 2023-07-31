@@ -34,7 +34,7 @@
                         </td>
                         <td>
                             <a class="btn btn-outline-primary btn-sm border-0 rounded-0" href="/content/portofolio/edit/<?= $porto->id ?>" onclick="showLoader()"><?= icon('pencil-square') ?></a>
-                            <button class="btn btn-sm btn-outline-danger border-0 rounded-0" modal="delete-alert" target-url="<?= base_url('content/portofolio/delete/ph' . $porto->id); ?>" data="Portofolio"> <?= icon('trash3-fill') ?></button>
+                            <button class="btn btn-sm btn-outline-danger border-0 rounded-0" modal="delete-alert" target-url="<?= base_url('content/portofolio/delete/' . $porto->id); ?>" data="Portofolio"> <?= icon('trash3-fill') ?></button>
                         </td>
                     </tr>
                 <?php } ?>

@@ -72,7 +72,7 @@ function deleteData(url){
                 iziToast.show({
                     title: data.message,
                     // message: 'What would you like to add?',
-                    balloon: false,
+                    balloon: true,
                     position: 'topCenter',
                     theme: "light",
                     color: 'red'
