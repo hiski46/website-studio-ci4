@@ -36,13 +36,25 @@
             <div class="h5">Categories</div>
             <div class="list-group rounded-0">
                 <a href="/landingpage/paket" class="list-group-item list-group-item-action <?= ($active == 'category-all') ? 'active' : '' ?>" aria-current="true">
-                    All
+                    <b>All</b>
                 </a>
                 <a href="/landingpage/paket?category=promo" class="list-group-item list-group-item-action <?= ($active == 'category-promo') ? 'active' : '' ?>" aria-current="true">
-                    Promo
+                    <b>Promo</b>
                 </a>
+                <div href="#" class="list-group-item list-group-item-action " aria-current="true">
+                    <b>Studio</b>
+                    <div class=" list-group rounded-0 ">
+                        <?php foreach ($category as $c) { ?>
+                            <?php if ($c->type == 'studio') { ?>
+                                <a href="/landingpage/paket?category=<?= $c->id ?>" class="list-group-item border-0 list-group-item-action <?= ($active == 'category-' . $c->id) ? 'active' : '' ?>"><?= $c->category ?></a>
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
                 <?php foreach ($category as $c) { ?>
-                    <a href="/landingpage/paket?category=<?= $c->id ?>" class="list-group-item list-group-item-action <?= ($active == 'category-' . $c->id) ? 'active' : '' ?>"><?= $c->category ?></a>
+                    <?php if ($c->type == 'non-studio') { ?>
+                        <a href="/landingpage/paket?category=<?= $c->id ?>" class="list-group-item list-group-item-action <?= ($active == 'category-' . $c->id) ? 'active' : '' ?>"><b><?= $c->category ?></b></a>
+                    <?php } ?>
                 <?php } ?>
             </div>
         </div>

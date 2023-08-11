@@ -75,27 +75,47 @@ class IonAuthSeeder extends \CodeIgniter\Database\Seeder
 		$shopCategory = [
 			[
 				'category'  => 'Family',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Wisuda',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Baby and Matrnity',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Corporate',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Prewedding',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Bridal',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Foto Personal',
+				'type' => 'studio'
 			],
 			[
 				'category'  => 'Make Up',
+				'type' => 'studio'
+			],
+			[
+				'category'  => 'Kamera & Handphone',
+				'type' => 'non-studio'
+			],
+			[
+				'category'  => 'Cetak Foto',
+				'type' => 'non-studio'
+			],
+			[
+				'category'  => 'Jasa Dokumentasi',
+				'type' => 'non-studio'
 			],
 		];
 		$this->db->table('paket_category')->insertBatch($shopCategory);
@@ -139,6 +159,22 @@ class IonAuthSeeder extends \CodeIgniter\Database\Seeder
 			]
 		];
 		$this->db->table('biodata')->insertBatch($biodata);
+
+		$makeup = [
+			[
+				'merk' => 'Ponds',
+			],
+			[
+				'merk' => 'Loreal',
+			],
+			[
+				'merk' => 'Bedak',
+			],
+			[
+				'merk' => 'Cipera',
+			],
+		];
+		$this->db->table('makeup')->insertBatch($makeup);
 
 		$this->db->transComplete();
 	}

@@ -20,6 +20,10 @@ class Paket extends Migration
                 'type'  => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'type' => [
+                'type' => 'varchar',
+                'constraint' => 20,
+            ],
 
         ]);
         $this->forge->addKey('id', true);

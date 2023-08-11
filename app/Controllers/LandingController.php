@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\MainController;
 use App\Models\BiodataModel;
 use App\Models\CarouselModel;
+use App\Models\MakeupModel;
 use App\Models\PaketCategoryModel;
 use App\Models\PaketModel;
 use App\Models\PortofolioModel;
@@ -78,7 +79,9 @@ class LandingController extends MainController
         $biodata = new BiodataModel();
         $data = $biodata->getBiodata();
         $paket = new PaketModel();
+        $makeup = new MakeupModel();
         $data['paket'] = json_encode($paket->where('is_active', 1)->orderBy('created_at', 'desc')->findAll());
+        $data['makeup'] = $makeup->findAll();
         $data['nav_active'] = 'cart';
         return $this->templateLanding('landingpage/cart', $data);
     }

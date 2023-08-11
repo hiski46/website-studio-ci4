@@ -36,6 +36,21 @@ class CreateTransaksiTable extends Migration
             'paket' => [
                 'type' => 'json',
             ],
+            'studio' => [
+                'type' => 'varchar',
+                'constraint' => 50,
+            ],
+            'waktu' => [
+                'type' => 'datetime'
+            ],
+            'is_make_up' => [
+                'type' => 'boolean',
+                'default' => '0',
+            ],
+            'make_up' => [
+                'type' => 'int',
+                'null' => true
+            ],
             'is_paid' => [
                 'type' => 'boolean',
                 'default' => '0',
