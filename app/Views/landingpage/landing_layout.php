@@ -24,10 +24,10 @@
 
 <body id="page-top">
     <!-- Navigation-->
-    <div class="navbar-brand fixed-top" style="margin-left: 10vw; z-index: 1031; width: fit-content;"><img src="/image/<?= $logo ?>" width="100" class="img-fluid" alt="..." /></div>
+    <!-- <div class="navbar-brand fixed-top" style="margin-left: 10vw; z-index: 1031; width: fit-content;"><img src="/image/<?= $logo ?>" width="100" class="img-fluid" alt="..." /></div> -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-
+            <a href="/" class="h5 text-primary" style="text-decoration: none;"><img src="/image/<?= $logo ?>" width="50px" alt="..." />SAVETIME STUDIO</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ms-1"></i>
@@ -140,6 +140,29 @@
                 color: "blue"
             });
         }
+
+
+
+        (function() {
+            var options = {
+                whatsapp: "<?= $phone ?>", // WhatsApp number
+                call_to_action: "Kirimi kami pesan", // Call to action
+                button_color: "#FF6550", // Color of button
+                position: "right", // Position may be 'right' or 'left'
+            };
+            var proto = 'https:',
+                host = "getbutton.io",
+                url = proto + '//static.' + host;
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = url + '/widget-send-button/js/init.js';
+            s.onload = function() {
+                WhWidgetSendButton.init(host, proto, options);
+            };
+            var x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        })();
     </script>
     <?= $this->renderSection('javascript') ?>
 </body>

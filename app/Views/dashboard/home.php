@@ -86,7 +86,7 @@
                                 </td>
                                 <td><?= $tr->created_at ?></td>
                                 <td>
-                                    <ol>
+                                    <ol class="mb-0">
                                         <?php $totalPrice = 0 ?>
                                         <?php foreach (json_decode($tr->paket) as $paket) { ?>
                                             <?php
@@ -97,6 +97,11 @@
                                             <li><?= $pkt->title ?> <b> <?= $paket->qty ?> x <?= nilaiUang($price) ?>= <?= nilaiUang($paket->qty * $price) ?></b> </li>
                                         <?php } ?>
                                     </ol>
+                                    <ul class="ms-3">
+                                        <li>Studio :<?= ucfirst($tr->studio) ?></li>
+                                        <li>Waktu : <?= date('d/M/Y H:i') ?></li>
+                                        <li>Makeup : <?= $tr->is_make_up ? findById($makeup, $tr->make_up)[0]->merk : '<b class="text-danger">x</b>' ?></li>
+                                    </ul>
                                 </td>
                                 <td>Rp. <?= nilaiUang($totalPrice) ?></td>
                                 <td data-order="<?= $tr->is_paid ?>">

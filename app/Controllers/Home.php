@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PaketModel;
 use App\Models\TransaksiModel;
 use App\Controllers\MainController;
+use App\Models\MakeupModel;
 
 class Home extends MainController
 {
@@ -28,6 +29,7 @@ class Home extends MainController
         $pengunjungonline  = $this->visitor->db->query("SELECT * FROM visitor WHERE online > '" . $bataswaktu . "'")->getNumRows(); // hitung pengunjung online
 
         $paket = new PaketModel();
+        $makeup = new MakeupModel();
         $batas_waktu = date("Y-m-d H:i:s", strtotime("-10 minutes"));
         $data = [
             'title' => "Home",
@@ -35,6 +37,7 @@ class Home extends MainController
             'transaksiDone' => $transaksi->where('is_paid', 1)->countAllResults(),
             'transaksiWait' => $transaksi->where('is_paid', 0)->where('created_at >=', $batas_waktu)->countAllResults(),
             'pakets' => $paket->findAll(),
+            'makeup' => $makeup->findAll(),
         ];
         $data['pengunjunghariini'] = $pengunjunghariini;
         $data['totalpengunjung'] = $totalpengunjung;
